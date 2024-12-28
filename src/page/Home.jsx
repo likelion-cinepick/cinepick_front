@@ -1,8 +1,12 @@
 import React from 'react'
+import KeywordMood from '../components/KeywordMood'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <p>HOME</p>
+      <KeywordMood/>
+    </div>
   )
 }
 
