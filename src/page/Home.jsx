@@ -1,13 +1,15 @@
-import React from 'react'
-import KeywordMood from '../components/KeywordMood'
+import React, { useState, useEffect } from "react";
+import "../assets/scss/components/_start.scss";
+import KeywordMood from "../components/KeywordMood";
+import KeywordMbti from "../components/KeywordMbti";
 
 const Home = () => {
   return (
     <div>
       <p>HOME</p>
-      <KeywordMood/>
+      {/* <KeywordMood /> */}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
