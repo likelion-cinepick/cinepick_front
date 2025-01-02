@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import '../assets/scss/components/_start.scss';
 import backBtn from '../assets/img/backBtn.svg';
@@ -6,9 +6,22 @@ import closeBtn from '../assets/img/closeBtn.svg';
 import logo from '../assets/img/logo.svg';
 
 const Re_nickname = () => {
+    const [userName, setUserName] = useState('성신');
     const [inputValue, setInputValue] = useState('');
 
-    const goBack=() => {
+    useEffect(() => {
+        const storedUserName = localStorage.getItem('userName');
+        if (storedUserName) setUserName(storedUserName);
+    })
+
+    const saveNickname = () => {
+        if (inputValue) {
+            localStorage.setItem('userName', inputValue);
+        }
+    };
+
+
+    const goBack = () => {
         window.history.back();
     }
 
@@ -38,11 +51,13 @@ const Re_nickname = () => {
 
                 <Link
                     to='/mypage'
-                    disabled={!inputValue}
+                    onClick={saveNickname}
                     style={{ backgroundColor: inputValue ? '#3AD2C2' : '#696969' }}
-                    className={`nextBtn ${inputValue}?"active": ""}`}>
+                    className={`nextBtn ${inputValue ? "active" : ""}`}
+                >
                     완료
                 </Link>
+
             </main>
         </div>
     )

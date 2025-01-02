@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import KeywordMbti from '../components/KeywordMbti';
 import KeywordMood from '../components/KeywordMood';
 import '../assets/scss/components/_start.scss';
 import backBtn from '../assets/img/backBtn.svg';
@@ -7,18 +9,36 @@ import closeBtn from '../assets/img/closeBtn.svg';
 const Setting = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [inputValue, setInputValue] = useState('');
-  const [selectedMbti, setSelectedMbti] = useState('');
+  const [userName, setUserName] = useState('성신');
+  const [selectedMbtis, setSelectedMbtis] = useState([]);
   const [selectedMoods, setSelectedMoods] = useState([]);
 
   const handleNextStep = () => {
     if (currentStep < 3) {
+      if (currentStep === 1) {
+        setUserName(inputValue);
+        localStorage.setItem('userName', inputValue);
+      }
+      if (currentStep === 2) {
+        localStorage.setItem('selectedMbti', JSON.stringify(selectedMbtis)); // Save MBTI
+      }
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === 3) {
+      localStorage.setItem('selectedMoods', JSON.stringify(selectedMoods)); // Save Moods
     }
   };
 
   const handlePreviousStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleMbtiSelect = (mbti) => {
+    if (selectedMbtis.includes(mbti)) {
+      setSelectedMbtis(selectedMbtis.filter((x) => x !== mbti));
+    } else if (selectedMbtis.length < 1) {
+      setSelectedMbtis([...selectedMbtis, mbti]);
     }
   };
 
@@ -41,7 +61,6 @@ const Setting = () => {
         </button>
       </header>
       <div className="setting-container">
-
         {currentStep === 1 && (
           <div className="step1">
             <h2>가입을 축하드려요!<br />어떻게 불러드리면 될까요?</h2>
@@ -65,25 +84,24 @@ const Setting = () => {
 
         {currentStep === 2 && (
           <div className="step2">
-            <h2>성신님의 MBTI를 선택해주세요.</h2>
-            <div className="mbti-buttons">
-              {['ESTJ', 'ISFP', 'INTP', 'ENTJ', 'ENFP', 'INTJ', 'ISTJ', 'ESFP', 'ESTP', 'ISFJ', 'INFP', 'ENFJ', 'ENTP', 'INFJ', 'ESFJ', 'ISTP'].map((mbti) => (
-                <button
-                  key={mbti}
-                  className={`mbti-item ${selectedMbti === mbti ? 'selected' : ''}`}
-                  onClick={() => setSelectedMbti(mbti)}
-                >
-                  {mbti}
-                </button>
-              ))}
-            </div>
-            <button className='nextBtn'
-              style={{ backgroundColor: selectedMbti ? '#3AD2C2' : '#696969' }}
+            <h2>{userName}님의 MBTI를 선택해주세요.</h2>
+            <p className='p2'>처음 가입 시, MBTI에 따라 프로필이 설정되어요.<br />이후 테스트를 진행하여 변경 가능해요!</p>
+            <KeywordMbti
+              selectedMbtis={selectedMbtis}
+              onMbtiSelect={handleMbtiSelect}
+            />
+
+            <button
+              className="nextBtn"
+              style={{
+                backgroundColor: selectedMbtis.length > 0 ? '#3AD2C2' : '#696969',
+              }}
               onClick={handleNextStep}
-              disabled={!selectedMbti}
+              disabled={selectedMbtis.length === 0}
             >
-              다음
+              완료
             </button>
+
           </div>
         )}
 
@@ -91,19 +109,21 @@ const Setting = () => {
           <div className="step3">
             <h2>선호하는 분위기를 선택해주세요.</h2>
             <p className='p3'>키워드는 1개 이상, 최대 3개로 골라주세요!</p>
-            <KeywordMood 
+            <KeywordMood
               className='mood-buttons'
               selectedMoods={selectedMoods}
               onMoodSelect={handleMoodSelect}
             />
-            <button
-              className='nextBtn'
-              style={{ backgroundColor: selectedMoods.length > 0 ? '#3AD2C2' : '#696969' }}
-              onClick={handleNextStep}
-              disabled={selectedMoods.length === 0}
-            >
-              완료
-            </button>
+            <Link to='/mypage'>
+              <button
+                className='nextBtn'
+                style={{ backgroundColor: selectedMoods.length > 0 ? '#3AD2C2' : '#696969' }}
+                onClick={handleNextStep}
+                disabled={selectedMoods.length === 0}
+              >
+                완료
+              </button>
+            </Link>
           </div>
         )}
       </div>

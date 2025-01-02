@@ -7,10 +7,21 @@ $background-color: #020C0B;
   display: flex;
   justify-content: space-between;
 
-  .back-btn,
+  .back-btn {
+    width: 24px;
+    height: 24px;
+    background: none;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
   .close-btn {
     width: 24px;
     height: 24px;
+    left: 334px;
+    position: absolute;
     background: none;
     cursor: pointer;
     margin-top: 20px;
@@ -166,10 +177,21 @@ $background-color: #020C0B;
     display: flex;
     justify-content: space-between;
 
-    .back-btn,
+    .back-btn {
+      width: 24px;
+      height: 24px;
+      background: none;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  
     .close-btn {
       width: 24px;
       height: 24px;
+      left: 334px;
+      position: absolute;
       background: none;
       cursor: pointer;
       margin-top: 20px;
@@ -400,7 +422,7 @@ $background-color: #020C0B;
       font-family: (var(--mainfont));
     }
 
-    .mbti-buttons {
+    .mbti-components {
       width: 358px;
       height: 216px;
       position: absolute;
@@ -474,6 +496,7 @@ $background-color: #020C0B;
   color: #ffffff;
   font-family: 'Arial', sans-serif;
   padding: 16px;
+  width: 390px;
 
   .mypage-header {
     display: flex;
@@ -697,10 +720,21 @@ $background-color: #020C0B;
     display: flex;
     justify-content: space-between;
 
-    .back-btn,
+    .back-btn {
+      width: 24px;
+      height: 24px;
+      background: none;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  
     .close-btn {
       width: 24px;
       height: 24px;
+      left: 334px;
+      position: absolute;
       background: none;
       cursor: pointer;
       margin-top: 20px;
@@ -755,12 +789,10 @@ $background-color: #020C0B;
 .reset-header {
   top: 16px;
   position: absolute;
-  width: 100%;
   display: flex;
   justify-content: space-between;
 
-  .back-btn,
-  .close-btn {
+  .back-btn {
     width: 24px;
     height: 24px;
     background: none;
@@ -770,6 +802,17 @@ $background-color: #020C0B;
     margin-right: 16px;
   }
 
+  .close-btn {
+    width: 24px;
+    height: 24px;
+    left: 334px;
+    position: absolute;
+    background: none;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
   .re-logo {
     left: 148px;
     top: 18px;
@@ -808,10 +851,21 @@ $background-color: #020C0B;
     display: flex;
     justify-content: space-between;
 
-    .back-btn,
+    .back-btn {
+      width: 24px;
+      height: 24px;
+      background: none;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  
     .close-btn {
       width: 24px;
       height: 24px;
+      left: 334px;
+      position: absolute;
       background: none;
       cursor: pointer;
       margin-top: 20px;

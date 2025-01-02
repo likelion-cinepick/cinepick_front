@@ -8,6 +8,7 @@ import Mypage from './page/Mypage';
 import Heart from './page/Heart';
 import Re_nickname from './page/Re_nickname';
 import Re_mood from './page/Re_mood';
+import Re_mbti from './page/Re_mbti';
 import './assets/scss/style.scss';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/heart' element={<Heart />} />
         <Route path='/re_nickname' element={<Re_nickname />} />
         <Route path='/re_mood' element={<Re_mood />} />
+        <Route path='/re_mbti' element={<Re_mbti />} />
       </Routes>
     </BrowserRouter>
   )

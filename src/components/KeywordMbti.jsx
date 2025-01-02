@@ -1,33 +1,24 @@
-import React from 'react'
+const KeywordMbti = ({ selectedMbtis = [], onMbtiSelect }) => {
+  const mbtiList = [
+    'ESTJ', 'ISFP', 'INTP', 'ENTJ', 'ENFP', 'INTJ',
+    'ISTJ', 'ESFP', 'ESTP', 'ISFJ', 'INFP', 'ENFJ',
+    'ENTP', 'INFJ', 'ESFJ', 'ISTP',
+  ];
 
-const KeywordMbti = () => {
-    const mbti = [
-        { text: 'ESTJ' },
-        { text: 'ISFP' },
-        { text: 'INTP' },
-        { text: 'ENTJ' },
-        { text: 'ENFP' },
-        { text: 'INTJ' },
-        { text: 'ISTJ' },
-        { text: 'ESFP' },
-        { text: 'ESTP' },
-        { text: 'ISFJ' },
-        { text: 'INFP' },
-        { text: 'ENFJ' },
-        { text: 'ENTP' },
-        { text: 'INFJ' },
-        { text: 'ESFJ' },
-        { text: 'ISTP' },
-      ];
+  const isSelected = (mbti) => selectedMbtis.includes(mbti);
+
   return (
-    <div className='mbti_components'>
-        {mbti.map((mbti, index)=>(
-            <div key={index} className='item'>
-                <p>{mbti.text}</p>
-            </div>
-        ))}
+    <div className="mbti_components">
+      {mbtiList.map((mbti) => (
+        <div
+          key={mbti}
+          className={`item ${isSelected(mbti) ? 'selected' : ''}`}
+          onClick={() => onMbtiSelect(mbti)}
+        >
+          {mbti}
+        </div>
+      ))}
     </div>
-  )
-}
-
-export default KeywordMbti
+  );
+};
+export default KeywordMbti;

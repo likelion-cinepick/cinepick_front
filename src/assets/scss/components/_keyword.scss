@@ -1,56 +1,55 @@
 .mood_components {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px 12px;
-  
-    .item {
-      display: inline-flex;
-      padding: 8px 16px;
-      gap: 4px;
-      border-radius: 24px;
-      border: 1px solid #FFF;
-      background: rgba(255, 255, 255, 0.40);
-      color: #FFFFFF;
-      font-family: var(--subfont);
-      font-size: 16px;
-      cursor: pointer;
-  
-      &.selected {
-        background: #FFFFFF;
-        color: #343C3C;
-      }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 12px;
+
+  .item {
+    display: inline-flex;
+    padding: 8px 16px;
+    gap: 4px;
+    border-radius: 24px;
+    border: 1px solid #FFF;
+    background: rgba(255, 255, 255, 0.40);
+    color: #FFFFFF;
+    font-family: var(--subfont);
+    font-size: 16px;
+    cursor: pointer;
+
+    &.selected {
+      background: #FFFFFF;
+      color: #343C3C;
     }
   }
-  
+}
+
 
 .mbti_components {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px 12px;
-    width: 390px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 12px;
+  width: 390px;
+  position: absolute;
+  top: 340px;
 
-    .item {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px 12px;
-        position: relative;
-        gap: 4px;
-        width: 85px;
-        height: 48px;
-        line-height: 48px;
-        justify-content: center;
-        border-radius: 50px;
-        border: 1px solid #FFFFFF;
-        background: rgba(255, 255, 255, 0.40);
-        font-family: var(--mainfont);
-        font-size: 20px;
+  .item {
+    padding: 10px 20px;
+    border: 1px solid #FFFFFF;
+    border-radius: 50px;
+    width: 85px;
+    height: 48px;
+    background: #676D6D;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: var(--mainfont);
+    font-size: 20px;
+    font-weight: 400;
 
-        &.active {
-            background-color: #343C3C;
-            color: #FFFFFF;
-        }
+    &.selected {
+      background-color: #FFFFFF;
+      color: #676D6D;
     }
+  }
 
 }

@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
-import KeywordMood from '../components/KeywordMood';
+import KeywordMbti from '../components/KeywordMbti';
 import { Link } from "react-router-dom";
 import '../assets/scss/components/_start.scss';
 import backBtn from '../assets/img/backBtn.svg';
 import closeBtn from '../assets/img/closeBtn.svg';
 import logo from '../assets/img/logo.svg';
 
-const Re_mood = () => {
-    const [selectedMoods, setSelectedMoods] = useState([]);
+const Re_mbti = () => {
+    const [selectedMbti, setSelectedMbti] = useState(null);
 
-    const handleMoodSelect = (mood) => {
-        if (selectedMoods.includes(mood)) {
-            setSelectedMoods(selectedMoods.filter((m) => m !== mood));
-        } else if (selectedMoods.length < 3) {
-            setSelectedMoods([...selectedMoods, mood]);
-        }
+    const handleMbtiSelect = (mbti) => {
+        setSelectedMbti(mbti);
     };
 
     const handleComplete = () => {
-        localStorage.setItem('selectedMoods', JSON.stringify(selectedMoods));
+        if (selectedMbti) {
+            localStorage.setItem('selectedMbti', JSON.stringify(selectedMbti));
+        }
     };
 
     const goBack = () => {
@@ -39,17 +37,18 @@ const Re_mood = () => {
                 </button>
             </header>
             <main className='re-mood-main'>
-                <h2>키워드 변경하기</h2>
-                <p className='p3'>현재 선택한 분위기 키워드입니다!<br /> 변경을 원하시면 변경 후 완료를 클릭해주세요.</p>
-                <KeywordMood
-                    className='mood-buttons'
-                    selectedMoods={selectedMoods}
-                    onMoodSelect={handleMoodSelect}
-                />
+                <h2>MBTI 변경하기</h2>
+                <p className='p3'>현재 설정된 MBTI입니다!<br />변경을 원하시면 변경 후 완료를 클릭해주세요.</p>
+                <KeywordMbti
+    selectedMbtis={selectedMbti ? [selectedMbti] : []} // 배열로 통일
+    onMbtiSelect={handleMbtiSelect}
+/>
+
+
                 <Link
                     to="/mypage"
-                    className={`nextBtn ${selectedMoods.length > 0 ? 'active' : ''}`}
-                    style={{ backgroundColor: selectedMoods.length > 0 ? '#3AD2C2' : '#696969' }}
+                    className={`nextBtn ${selectedMbti ? 'active' : ''}`}
+                    style={{ backgroundColor: selectedMbti ? '#3AD2C2' : '#696969' }}
                     onClick={handleComplete}
                 >
                     완료
@@ -59,4 +58,4 @@ const Re_mood = () => {
     );
 };
 
-export default Re_mood;
+export default Re_mbti;

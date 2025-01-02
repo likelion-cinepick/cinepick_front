@@ -11,19 +11,19 @@ const Login = () => {
   const [loginID, setLoginID] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  // 체크박스 상태 변경 핸들러
   const handleSaveIDFlag = () => {
     localStorage.setItem(LS_KEY_SAVE_ID_FLAG, JSON.stringify(!saveIDFlag));
     setSaveIDFlag(!saveIDFlag);
   };
 
-  // 컴포넌트 로드 시 저장된 상태 초기화
   useEffect(() => {
     const idFlag = JSON.parse(localStorage.getItem(LS_KEY_SAVE_ID_FLAG));
     if (idFlag !== null) setSaveIDFlag(idFlag);
 
-    const savedID = localStorage.getItem(LS_KEY_ID);
-    if (savedID) setLoginID(savedID);
+    if (idFlag) {
+      const savedID = localStorage.getItem(LS_KEY_ID);
+      if (savedID) setLoginID(savedID);
+    }
   }, []);
 
   const handleLogin = (e) => {

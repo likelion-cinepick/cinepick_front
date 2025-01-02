@@ -7,7 +7,6 @@ const Home = () => {
   return (
     <div>
       <p>HOME</p>
-      {/* <KeywordMood /> */}
     </div>
   );
 };
