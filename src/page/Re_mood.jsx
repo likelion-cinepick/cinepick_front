@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import KeywordMood from '../components/KeywordMood';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import '../assets/scss/components/_start.scss';
 import backBtn from '../assets/img/backBtn.svg';
 import closeBtn from '../assets/img/closeBtn.svg';
@@ -17,8 +18,20 @@ const Re_mood = () => {
         }
     };
 
-    const handleComplete = () => {
-        localStorage.setItem('selectedMoods', JSON.stringify(selectedMoods));
+    const handleComplete = async () => {
+        const token = localStorage.getItem('authToken');
+        try {
+            const response = await axios.post('http://3.105.163.214:8080/mood', {
+                userId: localStorage.getItem('LS_KEY_ID'),
+                mood: selectedMoods.join(','),
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            localStorage.setItem('selectedMoods', response.data);
+            console.log('Mood successfully updated:', response.data);
+        } catch (error) {
+            console.error('Error updating mood:', error);
+        }
     };
 
     const goBack = () => {

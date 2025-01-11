@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import '../assets/scss/components/_start.scss';
 import logo from '../assets/img/logo.svg';
 import edit from '../assets/img/edit.svg';
 import heart from '../assets/img/heart.svg';
 import set from '../assets/img/set.svg';
+import ENTP from '../assets/img/ENTP.svg';
+import INTP from '../assets/img/INTP.svg';
+import ENTJ from '../assets/img/ENTJ.svg';
+import INTJ from '../assets/img/INTJ.svg';
+import ENFP from '../assets/img/ENFP.svg';
+import INFP from '../assets/img/INFP.svg';
+import ENFJ from '../assets/img/ENFJ.svg';
+import INFJ from '../assets/img/INFJ.svg';
+import ESTP from '../assets/img/ESTP.svg';
+import ISTP from '../assets/img/ISTP.svg';
+import ESTJ from '../assets/img/ESTJ.svg';
+import ISTJ from '../assets/img/ISTJ.svg';
+import ESFP from '../assets/img/ESFP.svg';
+import ISFP from '../assets/img/ISFP.svg';
+import ESFJ from '../assets/img/ESFJ.svg';
+import ISFJ from '../assets/img/ISFJ.svg';
 
 const Mypage = () => {
     const [selectedMoods, setSelectedMoods] = useState([]);
@@ -12,15 +29,27 @@ const Mypage = () => {
     const [userName, setUserName] = useState('성신');
 
     useEffect(() => {
-        const storedMoods = localStorage.getItem('selectedMoods');
-        const storedMbti = localStorage.getItem('selectedMbti');
-        const storedUserName = localStorage.getItem('userName');
+        const token = localStorage.getItem('authToken');
 
-        if (storedMoods) setSelectedMoods(JSON.parse(storedMoods));
-        if (storedMbti) setSelectedMbti(JSON.parse(storedMbti));
-        if (storedUserName) setUserName(storedUserName);
+        axios.get('http://3.105.163.214:8080/my', {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((response) => {
+                const { data } = response;
+                console.log(data);
+                if (data) {
+                    setUserName(data.nickname || '성신');
+                    setSelectedMoods(data.mood || []);
+                    setSelectedMbti(data.mbti || null);
+                    console.log (`Moods Setting : ${selectedMoods}, ${data.mood}`);
+                }
+            })
+            .catch((error) => {
+                console.error('API 요청 실패:', error);
+            });
 
     }, []);
+
 
     return (
         <div className="mypage">
@@ -31,9 +60,18 @@ const Mypage = () => {
                 <h2 className="page-title">마이페이지</h2>
             </header>
             <section className="profile-section">
-                <div className="profile-image"></div>
+                <div className="profile-image">
+                    {selectedMbti && (
+                        <img
+                            src={require(`../assets/img/${selectedMbti}.svg`)}
+                            alt={`${selectedMbti} 이미지`}
+                            className="mbti-image"
+                        />
+                    )}
+                </div>
                 <h3 className="username">{userName}</h3>
             </section>
+
             <section className="info-section">
                 <div className="info-div">
                     <div className="info-item">
@@ -44,6 +82,7 @@ const Mypage = () => {
                             </Link>
                         </div>
                         <div className="keywords">
+                            {console.log(`Moods: ${selectedMoods}`)}
                             {selectedMoods.length > 0 ? (
                                 selectedMoods.map((mood, index) => (
                                     <div className="keyword" key={index}>

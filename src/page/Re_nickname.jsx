@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import '../assets/scss/components/_start.scss';
 import backBtn from '../assets/img/backBtn.svg';
 import closeBtn from '../assets/img/closeBtn.svg';
@@ -12,18 +13,29 @@ const Re_nickname = () => {
     useEffect(() => {
         const storedUserName = localStorage.getItem('userName');
         if (storedUserName) setUserName(storedUserName);
-    })
+    });
 
-    const saveNickname = () => {
+    const saveNickname = async () => {
         if (inputValue) {
-            localStorage.setItem('userName', inputValue);
+            const token = localStorage.getItem('authToken');
+            try {
+                const response = await axios.post('http://3.105.163.214:8080/nickname', {
+                    userId: localStorage.getItem('LS_KEY_ID'),
+                    nickname: inputValue,
+                }, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                localStorage.setItem('userName', response.data);
+                console.log('Nickname successfully updated:', response.data);
+            } catch (error) {
+                console.error('Error updating nickname:', error);
+            }
         }
     };
 
-
     const goBack = () => {
         window.history.back();
-    }
+    };
 
     return (
         <div className='Re_nickname'>
@@ -48,7 +60,6 @@ const Re_nickname = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="5글자 이내로 입력해주세요"
                 />
-
                 <Link
                     to='/mypage'
                     onClick={saveNickname}
@@ -57,10 +68,9 @@ const Re_nickname = () => {
                 >
                     완료
                 </Link>
-
             </main>
         </div>
-    )
-}
+    );
+};
 
-export default Re_nickname
+export default Re_nickname;

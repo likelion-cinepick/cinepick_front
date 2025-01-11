@@ -110,58 +110,59 @@ $background-color: #020C0B;
         border: 2px solid #A8FCF3;
         background-color: transparent;
         cursor: pointer;
-      
+
         &:checked {
           background-color: $primary-color;
           border-color: darken($primary-color, 10%);
           color: #FFFFFF;
         }
       }
-      
-      }
-      p{
-        left: 31px;
-        position: absolute;
-      }
-      
+
     }
-  }
 
-  .login-button {
-    position: absolute;
-    top: 178px;
-    left: 0px;
-    width: 358px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: 600;
-    background-color: $primary-color;
-    opacity: 0.8;
-    color: #FFFFFF;
-    border: 2px solid #A8FCF3;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: var(--mainfont);
-  }
-
-  .login-button:active {
-    background-color: darken($primary-color, 10%);
-  }
-
-  .login-links {
-    display: flex;
-    font-size: 14px;
-    font-weight: 300;
-    position: absolute;
-    top: 563px;
-    left: 50px;
-    font-family: var(--mainfont);
-
-    .login-link {
-      color: #B4B4B4;
-      margin-right: 28px;
+    p {
+      left: 31px;
+      position: absolute;
     }
+
   }
+}
+
+.login-button {
+  position: absolute;
+  top: 178px;
+  left: 0px;
+  width: 358px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: $primary-color;
+  opacity: 0.8;
+  color: #FFFFFF;
+  border: 2px solid #A8FCF3;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--mainfont);
+}
+
+.login-button:active {
+  background-color: darken($primary-color, 10%);
+}
+
+.login-links {
+  display: flex;
+  font-size: 14px;
+  font-weight: 300;
+  position: absolute;
+  top: 563px;
+  left: 50px;
+  font-family: var(--mainfont);
+
+  .login-link {
+    color: #B4B4B4;
+    margin-right: 28px;
+  }
+}
 
 
 .join {
@@ -186,7 +187,7 @@ $background-color: #020C0B;
       margin-left: 16px;
       margin-right: 16px;
     }
-  
+
     .close-btn {
       width: 24px;
       height: 24px;
@@ -309,7 +310,7 @@ $background-color: #020C0B;
       z-index: 1001;
       display: flex;
       justify-content: center;
-  
+
       h4 {
         top: 32px;
         position: absolute;
@@ -326,11 +327,12 @@ $background-color: #020C0B;
         font-family: var(--mainfont);
         font-size: 14px;
       }
+
       .modal-buttons {
         display: flex;
         justify-content: space-around;
         margin-top: 20px;
-        
+
         button {
           padding: 10px 20px;
           border: none;
@@ -339,22 +341,23 @@ $background-color: #020C0B;
           position: relative;
           width: 150px;
           height: 30px;
-          background-color:#FFFFFF;
+          background-color: #FFFFFF;
           color: #B4B4B4;
           font-size: 20px;
           font-weight: 600;
           cursor: pointer;
           font-family: var(--mainfont);
+
           &:nth-child(2) {
             color: $primary-color;
           }
         }
-        
-        
+
+
       }
-      
+
     }
-  }  
+  }
 }
 
 .setting-container {
@@ -537,8 +540,18 @@ $background-color: #020C0B;
       height: 100px;
       border-radius: 50%;
       border: 1px solid #FFFFFF;
-      background-color: #3c3c3c;
-    }
+      background-color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      .mbti-image {
+          width: 95%;
+          height: 95%;
+          border-radius: 50%;
+      }
+  }
+  
 
     .username {
       font-size: 20px;
@@ -808,6 +821,7 @@ $background-color: #020C0B;
     margin-left: 16px;
     margin-right: 16px;
   }
+
   .re-logo {
     left: 148px;
     top: 18px;
@@ -819,19 +833,19 @@ $background-color: #020C0B;
 
 .nextBtn {
   width: 358px;
-      height: 50px;
-      line-height: 50px;
-      text-align: center;
-      position: absolute;
-      top: 724px;
-      left: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 20px;
-      font-family: var(--mainfont);
-      font-weight: 600;
-      color: #FFFFFF;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  position: absolute;
+  top: 724px;
+  left: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: var(--mainfont);
+  font-weight: 600;
+  color: #FFFFFF;
 
   &:disabled {
     cursor: not-allowed;
@@ -855,7 +869,7 @@ $background-color: #020C0B;
       margin-left: 16px;
       margin-right: 16px;
     }
-  
+
     .close-btn {
       width: 24px;
       height: 24px;
@@ -942,6 +956,7 @@ $background-color: #020C0B;
 .Re_mood {
   .re-mood-main {
     font-family: var(--mainfont);
+
     h2 {
       top: 132px;
       left: 16px;
@@ -956,6 +971,7 @@ $background-color: #020C0B;
       font-size: 16px;
       font-family: (var(--mainfont));
     }
+
     .mood_components {
       width: 390px;
       height: 300px;
@@ -963,6 +979,144 @@ $background-color: #020C0B;
       top: 340px;
       left: 0px;
     }
-    
+
+  }
+}
+
+//home
+
+.homeContainer {
+  background-color: #1e1e1e;
+  color: #FFFFFF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .home-header {
+    background-color: #343C3C;
+    width: 390px;
+    height: 99px;
+    text-align: center;
+
+    span {
+      font-size: 16px;
+      font-weight: 400;
+      left: 16px;
+      top: 41px;
+      position: absolute;
+    }
+
+    button {
+      background-color: #343C3C;
+      color: #A8FCF3;
+      border: 1px solid #A8FCF3;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 112px;
+      height: 36px;
+      left: 246px;
+      top: 36px;
+      position: absolute;
+      font-family: var(--subfont);
+      font-size: 16px;
+
+      &:hover {
+        background-color: lighten(#00c4b4, 10%);
+      }
+    }
+  }
+
+  .home-main {
+    width: 390px;
+
+    .home-main-header {
+      display: flex;
+      top: 115px;
+      position: absolute;
+
+      .home-logo {
+        left: 0px;
+        top: 18px;
+        position: absolute;
+        width: 94.5px;
+        height: 15px;
+      }
+
+      .home-myPage {
+        left: 350px;
+        top: 18px;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+      }
+    }
+
+    h3 {
+      top: 201px;
+      position: absolute;
+      font-family: var(--mainfont);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .collectMood {
+      display: flex;
+      gap: 12px;
+      position: absolute;
+      top: 247px;
+      left: 16px;
+
+      button {
+        background: none;
+        border: 1px solid #FFFFFF;
+        color: #FFFFFF;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &.active {
+          background-color: #00c4b4;
+          color: #1e1e1e;
+        }
+      }
+    }
+
+    .movieSection {
+      margin-top: 2rem;
+
+      .moviePoster {
+        img {
+          width: 358px;
+          border-radius: 10px;
+          top: 299px;
+          left: 16px;
+          position: absolute;
+        }
+      }
+
+      .movieList,
+      .popularList {
+        margin-top: 1rem;
+
+        h4 {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .home-footer {
+    background-color: darken(#1e1e1e, 10%);
+    color: lighten(#FFFFFF, 20%);
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    bottom:16px ;
+    position: absolute;
+
+    p {
+      margin: 0.2rem 0;
+    }
   }
 }

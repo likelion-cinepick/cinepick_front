@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../assets/scss/components/_start.scss";
 import backBtn from "../assets/img/backBtn.svg";
 import closeBtn from "../assets/img/closeBtn.svg";
@@ -11,14 +12,42 @@ const Join = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const validatePassword = () => {
     setIsPasswordValid(password === confirmPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("in handle submit");
+
     if (isPasswordValid) {
-      alert("회원가입 성공!");
+      try {
+        const response = await axios.post(
+          "http://3.105.163.214:8080/register",
+          {
+            userId: id,
+            password: password,
+            confirmPassword: confirmPassword
+          }
+        );
+
+        console.log("Response received:", response);
+
+        if (response) {
+          localStorage.setItem("LS_KEY_ID", id);
+          alert("회원가입 성공!");
+          navigate("/login");
+        } else {
+          console.log(`No Data during register`)
+        }
+        
+      } catch (error) {
+        console.error(error);
+        alert("회원가입 실패! 다시 시도해 주세요.");
+      }
     } else {
       alert("비밀번호를 확인해주세요.");
     }
@@ -87,12 +116,12 @@ const Join = () => {
         {isPasswordValid === true && (
           <p className="password-success">비밀번호가 일치합니다.</p>
         )}
-        <Link
-          to="/login"
-          className={`submit-btn ${isPasswordValid ? "active" : ""}`}
-        >
-          완료
-        </Link>
+          <button
+            type="submit"
+            className={`submit-btn ${isPasswordValid ? "active" : ""}`}
+          >
+            완료
+          </button>
       </form>
 
       {isModalOpen && (

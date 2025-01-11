@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import KeywordMbti from '../components/KeywordMbti';
 import KeywordMood from '../components/KeywordMood';
 import '../assets/scss/components/_start.scss';
@@ -9,29 +10,80 @@ import closeBtn from '../assets/img/closeBtn.svg';
 const Setting = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [inputValue, setInputValue] = useState('');
-  const [userName, setUserName] = useState('성신');
+  const [userName, setUserName] = useState('');
   const [selectedMbtis, setSelectedMbtis] = useState([]);
   const [selectedMoods, setSelectedMoods] = useState([]);
 
-  const handleNextStep = () => {
+  const userId = localStorage.getItem('LS_KEY_ID');
+
+  const handleNextStep = async () => {
+    const token = localStorage.getItem('authToken'); 
+    
+    if (currentStep === 1) {
+      if (!inputValue) return;
+
+      try {
+        const response = await axios.post('http://3.105.163.214:8080/nickname', {
+          userId: `${localStorage.getItem("LS_KEY_ID")}`,
+          nickname: inputValue,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        localStorage.setItem('userName', response.data);
+        setUserName(response.data);
+        console.log('Nickname successfully updated:', response.data);
+      } catch (error) {
+        console.error('Error updating nickname:', error);
+      }
+    }
+
+    if (currentStep === 2) {
+      if (selectedMbtis.length === 0) return;
+
+      try {
+        const response = await axios.post('http://3.105.163.214:8080/mbti', {
+          userId: `${localStorage.getItem("LS_KEY_ID")}`,
+          mbti: selectedMbtis[0],
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        localStorage.setItem('selectedMbti', response.data);
+        console.log('MBTI successfully updated:', response.data);
+      } catch (error) {
+        console.error('Error updating MBTI:', error);
+      }
+    }
+
+    if (currentStep === 3) {
+      console.log(`selectedMoods : ${selectedMoods}`);
+      
+      if (selectedMoods.length === 0) return;
+
+      try {
+        const response = await axios.post('http://3.105.163.214:8080/mood', {
+          userId: `${localStorage.getItem("LS_KEY_ID")}`,
+          mood: selectedMoods,
+          mbti: selectedMbtis[0],
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        localStorage.setItem('selectedMoods', response.data);
+        console.log('Mood successfully updated:', response.data);
+      } catch (error) {
+        console.error('Error updating mood:', error);
+      }
+    }
+
     if (currentStep < 3) {
-      if (currentStep === 1) {
-        setUserName(inputValue);
-        localStorage.setItem('userName', inputValue);
-      }
-      if (currentStep === 2) {
-        localStorage.setItem('selectedMbti', JSON.stringify(selectedMbtis)); // Save MBTI
-      }
       setCurrentStep(currentStep + 1);
-    } else if (currentStep === 3) {
-      localStorage.setItem('selectedMoods', JSON.stringify(selectedMoods)); // Save Moods
     }
   };
 
   const handlePreviousStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
   const handleMbtiSelect = (mbti) => {
@@ -72,7 +124,7 @@ const Setting = () => {
               placeholder="5글자 이내로 입력해주세요"
             />
             <button
-              className='nextBtn'
+              className="nextBtn"
               style={{ backgroundColor: inputValue ? '#3AD2C2' : '#696969' }}
               onClick={handleNextStep}
               disabled={!inputValue}
@@ -84,39 +136,38 @@ const Setting = () => {
 
         {currentStep === 2 && (
           <div className="step2">
-            <h2>{userName}님의 MBTI를 선택해주세요.</h2>
-            <p className='p2'>처음 가입 시, MBTI에 따라 프로필이 설정되어요.<br />이후 테스트를 진행하여 변경 가능해요!</p>
+            <h2>MBTI를 선택해주세요.</h2>
+            <p className="p2">
+              처음 가입 시, MBTI에 따라 프로필이 설정되어요.<br />
+              이후 테스트를 진행하여 변경 가능해요!
+            </p>
             <KeywordMbti
               selectedMbtis={selectedMbtis}
               onMbtiSelect={handleMbtiSelect}
             />
-
             <button
               className="nextBtn"
-              style={{
-                backgroundColor: selectedMbtis.length > 0 ? '#3AD2C2' : '#696969',
-              }}
+              style={{ backgroundColor: selectedMbtis.length > 0 ? '#3AD2C2' : '#696969' }}
               onClick={handleNextStep}
               disabled={selectedMbtis.length === 0}
             >
               완료
             </button>
-
           </div>
         )}
 
         {currentStep === 3 && (
           <div className="step3">
             <h2>선호하는 분위기를 선택해주세요.</h2>
-            <p className='p3'>키워드는 1개 이상, 최대 3개로 골라주세요!</p>
+            <p className="p3">키워드는 1개 이상, 최대 3개로 골라주세요!</p>
             <KeywordMood
-              className='mood-buttons'
+              className="mood-buttons"
               selectedMoods={selectedMoods}
               onMoodSelect={handleMoodSelect}
             />
-            <Link to='/mypage'>
+            <Link to="/mypage">
               <button
-                className='nextBtn'
+                className="nextBtn"
                 style={{ backgroundColor: selectedMoods.length > 0 ? '#3AD2C2' : '#696969' }}
                 onClick={handleNextStep}
                 disabled={selectedMoods.length === 0}
