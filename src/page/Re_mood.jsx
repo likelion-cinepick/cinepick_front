@@ -23,7 +23,7 @@ const Re_mood = () => {
         try {
             const response = await axios.post('http://3.105.163.214:8080/mood', {
                 userId: localStorage.getItem('LS_KEY_ID'),
-                mood: selectedMoods.join(','),
+                mood: selectedMoods,
             }, {
                 headers: { Authorization: `Bearer ${token}` }
             });

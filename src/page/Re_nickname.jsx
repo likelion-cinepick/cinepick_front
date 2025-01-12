@@ -18,9 +18,10 @@ const Re_nickname = () => {
     const saveNickname = async () => {
         if (inputValue) {
             const token = localStorage.getItem('authToken');
+            console.log('before try');
             try {
                 const response = await axios.post('http://3.105.163.214:8080/nickname', {
-                    userId: localStorage.getItem('LS_KEY_ID'),
+                    userId: `${localStorage.getItem("LS_KEY_ID")}`,
                     nickname: inputValue,
                 }, {
                     headers: { Authorization: `Bearer ${token}` }
