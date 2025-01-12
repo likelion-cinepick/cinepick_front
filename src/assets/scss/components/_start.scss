@@ -763,10 +763,29 @@ $background-color: #020C0B;
       margin-bottom: 24px;
     }
 
+    .no-likes{
+      .heartIcon{
+        top: 282px;
+        left: 130px;
+        width: 111px;
+        height: 111px;
+        position: absolute;
+      }
+      .message{
+        top: 242px;
+        position: relative;
+        text-align:center;
+        font-family: var(--mainfont);
+        font-size: 16px;
+        font-weight: 600;
+        color: #999999;
+      }
+    }
+
     .posters {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); // 한 줄에 3개씩 배치
-      gap: 16px; // 포스터 간격
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px; 
       justify-content: center;
       padding: 0 16px;
 
