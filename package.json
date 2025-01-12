@@ -1,4 +1,5 @@
 {
+  "proxy" :"http://3.105.163.214:8080/",
   "name": "cinepick_front",
   "version": "0.1.0",
   "private": true,
