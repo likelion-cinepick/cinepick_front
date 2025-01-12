@@ -1,0 +1,311 @@
+.detail-container {
+    width: 390px;
+    height: 100vh;
+    position: relative;
+}
+
+.content-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-top: 20px;
+
+    .detail-back, .detail-user {
+        width: 24px;
+        height: 24px;
+    }
+
+    .detail-logo{
+        width: 94.45px;
+        height: 15.14px;
+    }
+}
+
+.detail-movie_title {
+    font-family: 'pretendard';
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.detail-movie {
+    .detail-movie_plot {
+        font-family: 'pretendard';
+        padding-left: 20px;
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .detail-movie_plot_box {
+        background-color: #343C3C;
+        width: 358px;
+        margin: 16px;
+        display: flex;
+        
+        .plot {
+            font-family: 'pretendard';
+            padding: 20px;
+            font-size: 15.5px;
+            font-weight: 400;
+        }
+    }
+}
+
+.detail-suggestion {
+    .upper_nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+
+        
+        .go-to-more {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+.detail-suggestion_activity{
+    font-family: 'pretendard';
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.detail-comment_activity {
+    padding: 15px;
+    margin-top: 20px;
+
+    textarea {
+        background-color: #FBFCFF;
+        color: #B4B4B4;
+        width: 358px;
+        height: 120px;
+        padding: 10px;
+        outline: none;
+        border-radius: 10px;
+        resize: none;
+    }
+
+    .comment_count {
+        font-size: 10px;
+        color: #B4B4B4;
+        position: relative;
+        top: -110px;
+        left: 330px;
+    }
+
+    .submit-comment_activity{
+        width: 67px;
+        height: 33px;
+        background-color: #696969;
+        color: #B4B4B4;
+        border-radius: 6px;
+        position: relative;
+        top: -60px;
+        left: 280px;
+    }
+
+}
+
+.detail-Chit-Chat {
+
+    .upper_nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+
+        .detail-Chit-Chat_title{
+            font-family: 'pretendard';
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .set_array{
+            display: flex;
+            gap: 10px;
+
+            .selected {
+                font-family: 'pretendard';
+                font-size: 12px;
+                color: #696969;
+            }
+
+            .non_selected{
+                font-family: 'pretendard';
+                font-size: 12px;
+                color: #444444;
+            }
+        }
+    }
+
+    .line{
+        width: 390px;
+        height: 0px;
+        border: 1px solid #444444;
+    }
+    
+    .comments-page{
+        padding: 20px;
+    }
+}
+
+.comment-list {
+    .comment {
+        display: flex;
+        flex-direction: column;
+
+        .comment-header{
+            display: flex;
+            gap: 10px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .comment-content {
+            font-size: 14px;
+            font-weight: 400;
+            font-family: 'pretendard';
+        }
+
+        .comment-info{
+            display: flex;
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            margin-left: 40px;
+        }
+
+        .comment-nickname{
+            font-size: 12px;
+            font-weight: 400;
+            font-family: 'pretendard';
+            color: #444444;
+        }
+
+        .comment-date{
+            font-size: 12px;
+            font-weight: 400;
+            font-family: 'pretendard';
+            color: #444444;
+        }
+
+    }
+    
+
+}
+
+.comment-form {
+    position: relative;
+    width: 358px;
+  }
+  
+  .comment-textarea {
+    width: 100%;
+    height: 120px;
+    border: 1px solid #A8FCF3; /* Light blue border */
+    background-color: #020C0B;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: 'pretendard';
+  }
+  
+  .submit {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: transparent;
+    color: #696969; /* Dark gray text color */
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-family: 'pretendard';
+    font-weight: 600;
+  }
+  
+  .detail-Chit-Chat-new {
+    .upper_nav{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 20px;
+
+        .set_array{
+            display: flex;
+            gap: 10px;
+
+            .selected {
+                font-family: 'pretendard';
+                font-size: 12px;
+                color: #696969;
+            }
+
+            .non_selected{
+                font-family: 'pretendard';
+                font-size: 12px;
+                color: #444444;
+            }
+      
+        }
+    }
+
+}
+
+.recommendation {
+    width: 358px;
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+.activity-card-more {
+    width: calc(50% - 5px);
+    background-color: white;
+    border-radius: 8px;
+    height: 108px;
+
+    .activity-title {
+        font-size: 16;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+}
+
+/* back-to-list 링크 스타일 예시 */
+.back-to-list {
+    color: #fff;
+    background-color: #3AD2C2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 50px;
+    display: inline-block;
+    margin-top: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'pretendard';
+  }
+  
+  .back-to-list:hover {
+    color: #000;
+    background-color: #B6FFF7;
+  }
+  
