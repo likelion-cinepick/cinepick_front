@@ -10,6 +10,8 @@ import Re_nickname from './page/Re_nickname';
 import Re_mood from './page/Re_mood';
 import Re_mbti from './page/Re_mbti';
 import './assets/scss/style.scss';
+import MovieDetail from './page/MovieDetail';
+import MoreRecommend from './page/MoreRecommend';
 import TestHome from './page/TestHome';
 import TestQ1 from './page/TestQ1';
 import TestLoading from './page/TestLoading';
@@ -24,6 +26,8 @@ const App = () => {
       <Routes>
         <Route path='/Home' element={<Home/>} />
         <Route path='/TestHome' element={<TestHome/>} />
+        <Route path='/movie/detail' element={<MovieDetail/>} />
+        <Route path='/movie/detail/more' element={<MoreRecommend/>} />
         <Route
           path="/TestQ1"
           element={
