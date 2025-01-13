@@ -1,53 +1,77 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import back from '../assets/img/test/back_icon.svg'
 import logo from '../assets/img/test/logo.svg'
 import close from '../assets/img/test/close_icon.svg'
 
-
-const TestQ2 = () => {
+const TestQ2 = ({ pageType, answers, setAnswers, currentQuestion, setCurrentQuestion }) => {
     const navigate = useNavigate();
-    const [selectedAnswer, setSelectedAnswer] = useState(null); // 선택된 답변 관리
+    const location = useLocation(); // 전달된 state를 받음
+    const questions = location.state?.questions || []; // 질문 데이터
+    const userId = location.state?.userId || []; // 질문 데이터
+
     const goback = () => {
-        navigate(-1)
-    }
-    const gonext = () => {
-        navigate('/TestLoading')
-    }
-    const handleAnswerClick = (answer) => {
-        setSelectedAnswer(answer); // 선택된 답변 저장
+        if (currentQuestion > 1) {
+            setCurrentQuestion(currentQuestion - 1);
+            navigate(`/TestQ${(currentQuestion - 1) % 2 === 0 ? 2 : 1}`, { state: { questions,userId } });
+        }
+        else if (currentQuestion === 1) {
+            navigate('/TestHome')
+        }
     };
+    const gohome = () => {
+        navigate('/Home',{replace:true})
+      }
+    const gonext = () => {
+        if (!answers[currentQuestion - 1]) {
+            alert('답변을 선택해주세요!');
+            return;
+        }
+
+        if (currentQuestion < questions.length) {
+            setCurrentQuestion(currentQuestion + 1);
+            navigate(`/TestQ${(currentQuestion + 1) % 2 === 0 ? 2 : 1}`, { state: { questions,userId } });
+        } else {
+            navigate('/TestLoading', { state: { userId } }); // 결과 페이지로 이동
+        }
+    };
+    const goOut = () => {
+        navigate('/TestHome', { replace: true })
+    }
+
+    const handleAnswerClick = (answer) => {
+        const updatedAnswers = [...answers];
+        updatedAnswers[currentQuestion - 1] = answer; // 현재 질문 번호에 따라 답변 저장
+        setAnswers(updatedAnswers);
+    };
+
     return (
         <div className='container' id='testQ_div'>
             <div className="top">
                 <img src={back} className='back' onClick={goback} />
-                <img src={logo} className='logo' />
-                <img src={close} className='close' />
+                <img src={logo} className='logo' onClick={gohome}/>
+                <img src={close} className='close' onClick={goOut} />
             </div>
             <div className="percent_bar_back">
-                <div className="percent"></div>
+                <div className="percent" style={{ width: `${(currentQuestion / 12) * 100}%` }}></div>
             </div>
             <div className="question_div">
-                <p className="number">1.</p>
-                <p className='question'>🏠🎉<br />새로 이사온 옆집.<br />매일매일 파티를 여는데 초대장을 받은 나...</p>
+                <p className="number">{currentQuestion}.</p>
+                <p className='question'>{questions[currentQuestion - 1]?.question}</p>
             </div>
             <div className="answer_div">
-                <div
-                    className={selectedAnswer === 1 ? 'btn_choice' : 'btn_no'}
-                    onClick={() => handleAnswerClick(1)}
-                >
-                    <div className="number">1</div>
-                    초대해줘서 고맙다며 파티에 즐겁게 참석한다.
-                </div>
-                <div
-                    className={selectedAnswer === 2 ? 'btn_choice' : 'btn_no'}
-                    onClick={() => handleAnswerClick(2)}
-                >
-                    <div className="number">2</div>
-                    마음은 고마우나 벌써 피곤하여 거절한다.
-                </div>
+                {questions[currentQuestion - 1]?.options.map((option, index) => (
+                    <div
+                        key={index}
+                        className={answers[currentQuestion - 1] === index + 1 ? 'btn_choice' : 'btn_no'}
+                        onClick={() => handleAnswerClick(index + 1)}
+                    >
+                        <div className="number">{index + 1}</div>
+                        {option}
+                    </div>
+                ))}
             </div>
-            <div id="bottom_btn" className={selectedAnswer ? 'choice' : 'no_choice'}>
+            <div id="bottom_btn" className={answers[currentQuestion - 1] ? 'choice' : 'no_choice'}>
                 <div className="back_btn" onClick={goback}>이전</div>
                 <div className="next_btn" onClick={gonext}>다음</div>
             </div>

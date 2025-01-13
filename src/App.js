@@ -24,10 +24,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home/>} />
+        <Route path='/Home' element={<Home/>} />
+        <Route path='/TestHome' element={<TestHome/>} />
         <Route path='/movie/detail' element={<MovieDetail/>} />
         <Route path='/movie/detail/more' element={<MoreRecommend/>} />
-        <Route path='/Home' element={<TestHome/>} />
         <Route
           path="/TestQ1"
           element={
@@ -56,6 +56,7 @@ const App = () => {
         <Route path='/TestResult' element={<TestResult/>} />
         <Route path='/join' element={<Join/>}/>
         <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route path='/setting' element={<Setting />} />
         <Route path='/mypage' element={<Mypage />} />
         <Route path='/heart' element={<Heart />} />

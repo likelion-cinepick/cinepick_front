@@ -57,7 +57,7 @@ const Login = () => {
           localStorage.removeItem(LS_KEY_ID);
         }
         alert("로그인 성공!");
-        navigate("/setting"); 
+        navigate("/Home"); 
       } else {
         alert("아이디나 비밀번호가 틀렸습니다.");
       }
