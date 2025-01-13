@@ -7,6 +7,11 @@ import logo from "../assets/img/logo.svg";
 const Login = () => {
   const LS_KEY_ID = "LS_KEY_ID";
   const LS_KEY_SAVE_ID_FLAG = "LS_KEY_SAVE_ID_FLAG";
+  const LS_KEY_TOKEN = "authToken";
+  const LS_KEY_MBTI = "selectedMbti";
+  const LS_KEY_MOODS = "selectedMoods";
+  const LS_KEY_USERNAME = "userName";
+
   const navigate = useNavigate(); 
 
   const [saveIDFlag, setSaveIDFlag] = useState(false);
@@ -14,20 +19,32 @@ const Login = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState("");
 
+  // 로컬스토리지 초기화 및 저장된 ID 로드
+  useEffect(() => {
+    const savedID = localStorage.getItem(LS_KEY_ID);
+    if (savedID) setLoginID(savedID);
+
+    const idFlag = JSON.parse(localStorage.getItem(LS_KEY_SAVE_ID_FLAG));
+    setSaveIDFlag(idFlag || false);
+  }, []);
+
   const handleSaveIDFlag = () => {
-    localStorage.setItem(LS_KEY_SAVE_ID_FLAG, JSON.stringify(!saveIDFlag));
-    setSaveIDFlag(!saveIDFlag);
+    const newSaveIDFlag = !saveIDFlag;
+    localStorage.setItem(LS_KEY_SAVE_ID_FLAG, JSON.stringify(newSaveIDFlag));
+    setSaveIDFlag(newSaveIDFlag);
+
+    if (!newSaveIDFlag) {
+      localStorage.removeItem(LS_KEY_ID);
+    } else if (loginID) {
+      localStorage.setItem(LS_KEY_ID, loginID);
+    }
   };
 
   useEffect(() => {
-    const idFlag = JSON.parse(localStorage.getItem(LS_KEY_SAVE_ID_FLAG));
-    if (idFlag !== null) setSaveIDFlag(idFlag);
-
-    if (idFlag) {
-      const savedID = localStorage.getItem(LS_KEY_ID);
-      if (savedID) setLoginID(savedID);
+    if (saveIDFlag) {
+      localStorage.setItem(LS_KEY_ID, loginID);
     }
-  }, []);
+  }, [loginID, saveIDFlag]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -47,17 +64,35 @@ const Login = () => {
         userId: loginID,
         password: loginPassword,
       });
-      console.log("response");
+      console.log(`response-selected token: ${response.data.token}`);
       if (response.data.token) {
-        if (saveIDFlag) {
-          console.log("saveIDFlag is set");
-          localStorage.setItem(LS_KEY_ID, loginID);
-          localStorage.setItem("authToken", response.data.token);
-        } else {
-          localStorage.removeItem(LS_KEY_ID);
-        }
+        localStorage.setItem(LS_KEY_ID, loginID);
+        localStorage.setItem(LS_KEY_TOKEN, response.data.token);
+
+        try {
+          axios
+            .get("http://3.105.163.214:8080/my", {
+              headers: { Authorization: `Bearer ${response.data.token}` },
+            })
+            .then((response) => {
+              const { data } = response;
+              console.log(data);
+              if (data) {
+                localStorage.setItem(LS_KEY_MBTI, data.mbti || null);
+                localStorage.setItem(LS_KEY_MOODS, data.mood || null);
+                localStorage.setItem(LS_KEY_USERNAME, data.userName || null);
+                console.log(`Moods Setting : ${data.mood}`);
+              }
+            })
+            .catch(() => {
+              navigate("/setting");
+            });
+        } catch {}
+
         alert("로그인 성공!");
-        navigate("/Home"); 
+        if ((!localStorage.getItem(LS_KEY_MBTI)) || (!localStorage.getItem(LS_KEY_MOODS)))
+          navigate("/setting");
+        else navigate("/Home");
       } else {
         alert("아이디나 비밀번호가 틀렸습니다.");
       }
@@ -66,7 +101,7 @@ const Login = () => {
       alert("로그인 중 오류가 발생했습니다.");
     }
   };
-  
+
   return (
     <div className="login-container">
       <h1 className="login-logo">
