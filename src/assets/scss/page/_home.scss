@@ -42,7 +42,7 @@
             height: 15.142px;
         }
 
-        .mypage {
+        .mypage_icon_top {
             width: 24px;
             height: 24px;
         }
@@ -77,14 +77,19 @@
         }
 
         .movie_list_div {
+            width: 100%;
+            overflow-x: auto; /* 가로 스크롤 활성화 */
             display: flex;
             gap: 16px;
             margin-bottom: 24px;
+            scrollbar-width: none; /* Firefox용 스크롤바 설정 */
+            max-width: 100%; /* 화면에 맞게 조정 */
 
             .sub_movie {
                 width: 133px;
                 height: 188px;
                 border-radius: 4px;
+                flex-shrink: 0;
             }
         }
 
