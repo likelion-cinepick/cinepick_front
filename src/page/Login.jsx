@@ -93,6 +93,7 @@ const Login = () => {
         if ((!localStorage.getItem(LS_KEY_MBTI)) || (!localStorage.getItem(LS_KEY_MOODS)))
           navigate("/setting");
         else navigate("/Home");
+
       } else {
         alert("아이디나 비밀번호가 틀렸습니다.");
       }

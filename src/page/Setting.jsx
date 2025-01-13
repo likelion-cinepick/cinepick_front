@@ -165,7 +165,7 @@ const Setting = () => {
               selectedMoods={selectedMoods}
               onMoodSelect={handleMoodSelect}
             />
-            <Link to="/mypage">
+            <Link to="/Home">
               <button
                 className="nextBtn"
                 style={{ backgroundColor: selectedMoods.length > 0 ? '#3AD2C2' : '#696969' }}

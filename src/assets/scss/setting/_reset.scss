@@ -62,3 +62,11 @@ select {
     border-radius: 0;
     border: 0;
 }
+
+.container {
+    width: 100%;
+    min-width: 340px;
+    max-width: 440px;
+    margin: 0 auto;
+    height: calc(100dvh); 
+  }
