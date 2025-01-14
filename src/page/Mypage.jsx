@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../assets/scss/components/_start.scss';
 import logo from '../assets/img/logo.svg';
@@ -24,6 +24,7 @@ import ESFJ from '../assets/img/ESFJ.svg';
 import ISFJ from '../assets/img/ISFJ.svg';
 
 const Mypage = () => {
+    const navigate = useNavigate();
     const [selectedMoods, setSelectedMoods] = useState([]);
     const [selectedMbti, setSelectedMbti] = useState(null);
     const [userName, setUserName] = useState('성신');
@@ -50,12 +51,16 @@ const Mypage = () => {
 
     }, []);
 
+    const gohome = () => {
+        navigate('/Home',{replace:true})
+      }
+
 
     return (
         <div className="mypage">
             <header className="mypage-header">
                 <h1 className="logo">
-                    <img src={logo} alt="Logo" />
+                    <img src={logo} alt="Logo" onClick={gohome}/>
                 </h1>
                 <h2 className="page-title">마이페이지</h2>
             </header>
