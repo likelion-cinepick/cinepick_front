@@ -136,7 +136,7 @@ const Setting = () => {
 
         {currentStep === 2 && (
           <div className="step2">
-            <h2>{userName}님 MBTI를 선택해주세요.</h2>
+            <h2>MBTI를 선택해주세요.</h2>
             <p className="p2">
               처음 가입 시, MBTI에 따라 프로필이 설정되어요.<br />
               이후 테스트를 진행하여 변경 가능해요!

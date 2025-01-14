@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from "axios";
 import logo from '../assets/img/test/logo.svg'
 import close from '../assets/img/test/close_icon.svg'
 import loading_img from '../assets/img/test/loading_img.svg'
+
 const TestLoading = ({ answers }) => {
   const navigate = useNavigate();
+  const location = useLocation(); // 전달된 state를 받음
+  const userId = location.state?.userId || [];
+
+  console.log(userId)
 
   const calculateMBTI = () => {
     const types = ['E', 'I', 'N', 'S', 'F', 'T', 'P', 'J'];
@@ -17,19 +23,46 @@ const TestLoading = ({ answers }) => {
       if ([3, 7, 11].includes(index)) scores[3] += answer === 1 ? 1 : -1; // P/J
     });
 
-    return scores.map((score, i) => (score >= 0 ? types[i * 2] : types[i * 2 + 1])).join('');
+     // 결과를 배열(List<String>) 형태로 반환
+     return scores.map((score, i) => (score >= 0 ? types[i * 2] : types[i * 2 + 1]));
   };
 
   const mbtiResult = calculateMBTI();
+  console.log(mbtiResult);
   
   useEffect(() => {
-    // 3초 뒤에 TestResult 페이지로 이동하며 mbtiResult 전달
+    const token = localStorage.getItem('authToken'); // 토큰 가져오기
+
+    const submitMBTI = async () => {
+      try {
+        // /test/submit API로 POST 요청
+        await axios.post(
+          'http://3.105.163.214:8080/test/submit',
+          {
+            userId,
+            mbti: mbtiResult,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // 토큰 포함
+            },
+          }
+        );
+        console.log('MBTI 제출 성공!');
+      } catch (error) {
+        console.error('MBTI 제출 실패:', error);
+      }
+    };
+
+    submitMBTI(); // MBTI 전송
+
+    // 3초 뒤 TestResult 페이지로 이동
     const timer = setTimeout(() => {
-      navigate('/TestResult', { state: { mbtiResult } });
+      navigate('/TestResult', { state: { userId, mbti: mbtiResult } }); // mbtiResult 전달
     }, 3000);
 
     return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
-  }, [navigate, mbtiResult]);
+  }, [navigate, userId, mbtiResult]);
   
   return (
     <div className='container' id='testloading_div'>

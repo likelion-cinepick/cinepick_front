@@ -41,7 +41,7 @@ const Mypage = () => {
                     setUserName(data.nickname || '성신');
                     setSelectedMoods(data.mood || []);
                     setSelectedMbti(data.mbti || null);
-                    console.log (`Moods Setting : ${selectedMoods}, ${data.mood}`);
+                    console.log(`Moods Setting : ${selectedMoods}, ${data.mood}`);
                 }
             })
             .catch((error) => {
@@ -117,10 +117,12 @@ const Mypage = () => {
             </section>
             <nav className="navigation">
                 <div className="buttons">
-                    <button>
-                        <img src={edit} alt="Edit" />
-                        <p>테스트 다시하기</p>
-                    </button>
+                    <Link to="/TestHome">
+                        <button>
+                            <img src={edit} alt="Edit" />
+                            <p>테스트 다시하기</p>
+                        </button>
+                    </Link>
                     <Link to="/heart">
                         <button>
                             <img src={heart} alt="Heart" />
